@@ -1,27 +1,523 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<title>ToS</title>
-<link rel="stylesheet" href="style.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Terms of Service - Cmdr</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Rajdhani:wght@300;400;600;700&display=swap');
+        
+        :root {
+            --primary-orange: #FF6B00;
+            --primary-yellow: #FFB800;
+            --accent-gold: #FFA000;
+            --dark-bg: #0a0a0a;
+            --darker-bg: #050505;
+            --card-bg: #141414;
+            --text-primary: #ffffff;
+            --text-secondary: #a8a8a8;
+            --glow-orange: rgba(255, 107, 0, 0.6);
+            --glow-yellow: rgba(255, 184, 0, 0.6);
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Rajdhani', sans-serif;
+            background: var(--dark-bg);
+            color: var(--text-primary);
+            overflow-x: hidden;
+            position: relative;
+        }
+        
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: 
+                radial-gradient(ellipse at 10% 20%, rgba(255, 107, 0, 0.15) 0%, transparent 40%),
+                radial-gradient(ellipse at 90% 80%, rgba(255, 184, 0, 0.15) 0%, transparent 40%);
+            animation: backgroundPulse 20s ease-in-out infinite;
+            z-index: 0;
+        }
+        
+        @keyframes backgroundPulse {
+            0%, 100% { opacity: 1; transform: scale(1); }
+            50% { opacity: 0.8; transform: scale(1.1); }
+        }
+        
+        body::after {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: 
+                linear-gradient(rgba(255, 107, 0, 0.03) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(255, 107, 0, 0.03) 1px, transparent 1px);
+            background-size: 50px 50px;
+            pointer-events: none;
+            z-index: 0;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 3rem;
+            position: relative;
+            z-index: 1;
+        }
+        
+        nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            background: rgba(10, 10, 10, 0.8);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid rgba(255, 107, 0, 0.2);
+            z-index: 1000;
+            animation: slideDown 0.6s ease;
+        }
+        
+        @keyframes slideDown {
+            from {
+                transform: translateY(-100%);
+                opacity: 0;
+            }
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+        
+        nav .container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1.5rem 3rem;
+            max-width: 1600px;
+        }
+        
+        .logo {
+            font-family: 'Orbitron', monospace;
+            font-size: 2rem;
+            font-weight: 900;
+            background: linear-gradient(135deg, var(--primary-orange), var(--primary-yellow));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .logo:hover {
+            filter: drop-shadow(0 0 20px var(--glow-orange));
+        }
+        
+        .nav-links {
+            display: flex;
+            gap: 3rem;
+            list-style: none;
+        }
+        
+        .nav-links a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-size: 1.1rem;
+            font-weight: 600;
+            letter-spacing: 0.05em;
+            text-transform: uppercase;
+            position: relative;
+            transition: all 0.3s ease;
+        }
+        
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: linear-gradient(90deg, var(--primary-orange), var(--primary-yellow));
+            transition: width 0.3s ease;
+        }
+        
+        .nav-links a:hover {
+            color: var(--text-primary);
+        }
+        
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+        
+        .page-header {
+            padding: 150px 0 60px;
+            text-align: center;
+            animation: fadeInUp 0.8s ease;
+        }
+        
+        .page-title {
+            font-family: 'Orbitron', monospace;
+            font-size: clamp(3rem, 8vw, 5rem);
+            font-weight: 900;
+            background: linear-gradient(135deg, var(--primary-orange), var(--primary-yellow));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            background-size: 200% 200%;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            margin-bottom: 1rem;
+            animation: titleGlow 3s ease-in-out infinite, gradientMove 5s ease infinite;
+        }
+        
+        @keyframes titleGlow {
+            0%, 100% {
+                filter: drop-shadow(0 0 20px var(--glow-orange));
+            }
+            50% {
+                filter: drop-shadow(0 0 40px var(--glow-yellow));
+            }
+        }
+        
+        @keyframes gradientMove {
+            0%, 100% {
+                background-position: 0% 50%;
+            }
+            50% {
+                background-position: 100% 50%;
+            }
+        }
+        
+        .last-updated {
+            color: var(--text-secondary);
+            font-size: 1rem;
+            margin-bottom: 2rem;
+        }
+        
+        .content {
+            padding: 4rem 0 8rem;
+        }
+        
+        .content-section {
+            background: var(--card-bg);
+            border: 1px solid rgba(255, 107, 0, 0.2);
+            border-radius: 20px;
+            padding: 3rem;
+            margin-bottom: 3rem;
+            animation: fadeInUp 0.8s ease;
+        }
+        
+        .content-section h2 {
+            font-family: 'Orbitron', monospace;
+            font-size: 2rem;
+            color: var(--primary-orange);
+            margin-bottom: 1.5rem;
+            letter-spacing: 0.05em;
+        }
+        
+        .content-section h3 {
+            font-family: 'Orbitron', monospace;
+            font-size: 1.5rem;
+            color: var(--primary-yellow);
+            margin-top: 2rem;
+            margin-bottom: 1rem;
+        }
+        
+        .content-section p {
+            color: var(--text-secondary);
+            line-height: 1.8;
+            margin-bottom: 1.5rem;
+            font-size: 1.1rem;
+        }
+        
+        .content-section ul {
+            color: var(--text-secondary);
+            line-height: 1.8;
+            margin-left: 2rem;
+            margin-bottom: 1.5rem;
+        }
+        
+        .content-section ul li {
+            margin-bottom: 0.5rem;
+        }
+        
+        .highlight {
+            color: var(--primary-orange);
+            font-weight: 600;
+        }
+        
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        footer {
+            background: var(--darker-bg);
+            border-top: 1px solid rgba(255, 107, 0, 0.2);
+            padding: 3rem 0;
+            text-align: center;
+        }
+        
+        .footer-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1600px;
+            margin: 0 auto;
+            padding: 0 3rem;
+            flex-wrap: wrap;
+            gap: 2rem;
+        }
+        
+        footer p {
+            color: var(--text-secondary);
+            font-size: 1rem;
+            letter-spacing: 0.05em;
+        }
+        
+        .footer-links {
+            display: flex;
+            gap: 2rem;
+        }
+        
+        .footer-links a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+        }
+        
+        .footer-links a:hover {
+            color: var(--primary-yellow);
+        }
+        
+        @media (max-width: 768px) {
+            .container {
+                padding: 0 1.5rem;
+            }
+            
+            nav .container {
+                padding: 1rem 1.5rem;
+                flex-direction: column;
+                gap: 1rem;
+            }
+            
+            .nav-links {
+                gap: 1.5rem;
+            }
+            
+            .content-section {
+                padding: 2rem;
+            }
+            
+            .footer-content {
+                flex-direction: column;
+                text-align: center;
+            }
+            
+            .footer-links {
+                flex-direction: column;
+                gap: 1rem;
+            }
+        }
+    </style>
 </head>
 <body>
-
-<nav>
-    <h2>Cmdr</h2>
-    <div>
-        <a href="index.html">Home</a>
-        <a href="sneak.html">Sneak Peek</a>
-        <a href="team.html">Team</a>
-        <a href="tos.html">ToS</a>
+    <nav>
+        <div class="container">
+            <div class="logo">CMDR</div>
+            <ul class="nav-links">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="sneak-peek.html">Sneak Peek</a></li>
+                <li><a href="team.html">Team</a></li>
+                <li><a href="admin.html">Admin</a></li>
+            </ul>
+        </div>
+    </nav>
+    
+    <div class="page-header">
+        <div class="container">
+            <h1 class="page-title">Terms of Service</h1>
+            <p class="last-updated">Last Updated: January 1, 2026</p>
+        </div>
     </div>
-</nav>
-
-<h1 class="title">Terms of Service</h1>
-
-<p class="center">
-Use this website responsibly. No abuse, no misuse.
-</p>
-
+    
+    <section class="content">
+        <div class="container">
+            <div class="content-section">
+                <h2>1. Acceptance of Terms</h2>
+                <p>By accessing and using <span class="highlight">Cmdr</span> ("the Service", "Platform", or "Website"), you acknowledge that you have read, understood, and agree to be bound by these Terms of Service ("Terms"). These Terms constitute a legally binding agreement between you and Cmdr.</p>
+                <p>If you do not agree to all the terms and conditions of this agreement, then you may not access or use the Service. Your continued use of the Service will constitute your acceptance of any modified Terms.</p>
+            </div>
+            
+            <div class="content-section">
+                <h2>2. Service Description</h2>
+                <p><span class="highlight">Cmdr</span> provides a digital platform for users to access features, content, and services as described on our website. We reserve the right to modify, suspend, or discontinue any part of the Service at any time with or without notice.</p>
+                <p>The Service is provided "as is" and we make no warranties regarding uptime, availability, or functionality.</p>
+            </div>
+            
+            <div class="content-section">
+                <h2>3. Use of Service & Prohibited Activities</h2>
+                <p>You agree to use the Service only for lawful purposes and in accordance with these Terms. You specifically agree NOT to:</p>
+                <ul>
+                    <li>Use the Service in any way that violates any applicable federal, state, local, or international law or regulation</li>
+                    <li>Engage in any conduct that restricts or inhibits anyone's use or enjoyment of the Service</li>
+                    <li>Attempt to gain unauthorized access to, interfere with, damage, or disrupt any parts of the Service</li>
+                    <li>Use the Service to transmit, or procure the sending of, any advertising or promotional material without our prior written consent</li>
+                    <li>Impersonate or attempt to impersonate the Company, a Company employee, another user, or any other person or entity</li>
+                    <li>Use any robot, spider, or other automatic device, process, or means to access the Service for any purpose</li>
+                    <li>Introduce any viruses, trojan horses, worms, logic bombs, malware, or other material that is malicious or technologically harmful</li>
+                    <li>Attempt to bypass any security features or access controls of the Service</li>
+                </ul>
+            </div>
+            
+            <div class="content-section">
+                <h2>4. User Accounts & Security</h2>
+                <p>When you create an account with us, you must provide information that is accurate, complete, and current at all times. Failure to do so constitutes a breach of the Terms, which may result in immediate termination of your account.</p>
+                <p>You are responsible for:</p>
+                <ul>
+                    <li>Safeguarding the password that you use to access the Service</li>
+                    <li>All activities or actions under your account</li>
+                    <li>Notifying us immediately upon becoming aware of any breach of security or unauthorized use of your account</li>
+                </ul>
+                <p>We will not be liable for any loss or damage arising from your failure to comply with this section.</p>
+            </div>
+            
+            <div class="content-section">
+                <h2>5. Intellectual Property Rights</h2>
+                <p>The Service and its entire contents, features, and functionality (including but not limited to all information, software, text, displays, images, video, and audio, and the design, selection, and arrangement thereof) are owned by <span class="highlight">Cmdr</span>, its licensors, or other providers of such material and are protected by copyright, trademark, patent, trade secret, and other intellectual property or proprietary rights laws.</p>
+                <p>You are granted a limited, non-exclusive, non-transferable license to access and use the Service for personal, non-commercial purposes. You must not:</p>
+                <ul>
+                    <li>Reproduce, distribute, modify, create derivative works of, publicly display, publicly perform, republish, download, store, or transmit any of the material on our Service</li>
+                    <li>Sell or otherwise transfer the rights to the materials</li>
+                    <li>Remove any copyright or other proprietary notations from the materials</li>
+                </ul>
+            </div>
+            
+            <div class="content-section">
+                <h2>6. User-Generated Content</h2>
+                <p>By posting, uploading, or submitting any content to the Service, you grant us a worldwide, non-exclusive, royalty-free, transferable license to use, reproduce, distribute, prepare derivative works of, display, and perform that content in connection with the Service.</p>
+                <p>You represent and warrant that:</p>
+                <ul>
+                    <li>You own or control all rights to the content you post</li>
+                    <li>The content is accurate and not misleading</li>
+                    <li>Use and posting of the content will not violate these Terms or cause injury to any person</li>
+                </ul>
+                <p>We reserve the right to remove any content that violates these Terms or that we find objectionable.</p>
+            </div>
+            
+            <div class="content-section">
+                <h2>7. Privacy & Data Protection</h2>
+                <p>Your use of the Service is also governed by our Privacy Policy, which is incorporated into these Terms by reference. Please review our Privacy Policy to understand our practices regarding the collection, use, and disclosure of your personal information.</p>
+                <p>By using the Service, you consent to such collection, use, and disclosure as described in the Privacy Policy.</p>
+            </div>
+            
+            <div class="content-section">
+                <h2>8. Payments & Subscriptions</h2>
+                <p>Certain features of the Service may require payment. You agree to provide current, complete, and accurate purchase and account information for all purchases made via the Service.</p>
+                <p>All fees are non-refundable unless otherwise stated. We reserve the right to change our prices at any time with reasonable notice.</p>
+            </div>
+            
+            <div class="content-section">
+                <h2>9. Termination</h2>
+                <p>We may terminate or suspend your account and bar access to the Service immediately, without prior notice or liability, under our sole discretion, for any reason whatsoever and without limitation, including but not limited to a breach of the Terms.</p>
+                <p>Upon termination, your right to use the Service will immediately cease. If you wish to terminate your account, you may simply discontinue using the Service or contact us to request account deletion.</p>
+                <p>All provisions of the Terms which by their nature should survive termination shall survive termination, including, without limitation, ownership provisions, warranty disclaimers, indemnity, and limitations of liability.</p>
+            </div>
+            
+            <div class="content-section">
+                <h2>10. Disclaimer of Warranties</h2>
+                <p>THE SERVICE IS PROVIDED ON AN "AS IS" AND "AS AVAILABLE" BASIS. <span class="highlight">CMDR</span> MAKES NO WARRANTIES, EXPRESSED OR IMPLIED, AND HEREBY DISCLAIMS ALL WARRANTIES INCLUDING, WITHOUT LIMITATION, IMPLIED WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE, OR NON-INFRINGEMENT OF INTELLECTUAL PROPERTY.</p>
+                <p>We do not warrant that:</p>
+                <ul>
+                    <li>The Service will function uninterrupted, secure, or available at any particular time or location</li>
+                    <li>Any errors or defects will be corrected</li>
+                    <li>The Service is free of viruses or other harmful components</li>
+                    <li>The results of using the Service will meet your requirements</li>
+                </ul>
+            </div>
+            
+            <div class="content-section">
+                <h2>11. Limitation of Liability</h2>
+                <p>IN NO EVENT SHALL <span class="highlight">CMDR</span>, ITS DIRECTORS, EMPLOYEES, PARTNERS, AGENTS, SUPPLIERS, OR AFFILIATES, BE LIABLE FOR ANY INDIRECT, INCIDENTAL, SPECIAL, CONSEQUENTIAL, OR PUNITIVE DAMAGES, INCLUDING WITHOUT LIMITATION, LOSS OF PROFITS, DATA, USE, GOODWILL, OR OTHER INTANGIBLE LOSSES, RESULTING FROM:</p>
+                <ul>
+                    <li>Your access to or use of or inability to access or use the Service</li>
+                    <li>Any conduct or content of any third party on the Service</li>
+                    <li>Any content obtained from the Service</li>
+                    <li>Unauthorized access, use, or alteration of your transmissions or content</li>
+                </ul>
+                <p>OUR TOTAL LIABILITY SHALL NOT EXCEED THE AMOUNT PAID BY YOU, IF ANY, FOR ACCESSING THE SERVICE DURING THE SIX (6) MONTHS PRIOR TO THE EVENT GIVING RISE TO THE LIABILITY.</p>
+            </div>
+            
+            <div class="content-section">
+                <h2>12. Indemnification</h2>
+                <p>You agree to defend, indemnify, and hold harmless <span class="highlight">Cmdr</span> and its licensee and licensors, and their employees, contractors, agents, officers, and directors, from and against any and all claims, damages, obligations, losses, liabilities, costs or debt, and expenses arising from:</p>
+                <ul>
+                    <li>Your use and access of the Service</li>
+                    <li>Your violation of any term of these Terms</li>
+                    <li>Your violation of any third-party right, including without limitation any copyright, property, or privacy right</li>
+                    <li>Any claim that your content caused damage to a third party</li>
+                </ul>
+            </div>
+            
+            <div class="content-section">
+                <h2>13. Governing Law & Dispute Resolution</h2>
+                <p>These Terms shall be governed and construed in accordance with the laws of the jurisdiction in which <span class="highlight">Cmdr</span> operates, without regard to its conflict of law provisions.</p>
+                <p>Any disputes arising out of or relating to these Terms or the Service shall be resolved through binding arbitration in accordance with the applicable arbitration rules, unless otherwise agreed by both parties.</p>
+            </div>
+            
+            <div class="content-section">
+                <h2>14. Changes to Terms</h2>
+                <p>We reserve the right, at our sole discretion, to modify or replace these Terms at any time. If a revision is material, we will provide at least 30 days' notice prior to any new terms taking effect by:</p>
+                <ul>
+                    <li>Posting a notice on our website</li>
+                    <li>Sending you an email notification (if you have provided an email address)</li>
+                    <li>Updating the "Last Updated" date at the top of these Terms</li>
+                </ul>
+                <p>By continuing to access or use our Service after any revisions become effective, you agree to be bound by the revised terms. If you do not agree to the new terms, you are no longer authorized to use the Service.</p>
+            </div>
+            
+            <div class="content-section">
+                <h2>15. Severability & Waiver</h2>
+                <p>If any provision of these Terms is held to be unenforceable or invalid, such provision will be changed and interpreted to accomplish the objectives of such provision to the greatest extent possible under applicable law, and the remaining provisions will continue in full force and effect.</p>
+                <p>No waiver by <span class="highlight">Cmdr</span> of any term or condition set forth in these Terms shall be deemed a further or continuing waiver of such term or condition or a waiver of any other term or condition.</p>
+            </div>
+            
+            <div class="content-section">
+                <h2>16. Contact Us</h2>
+                <p>If you have any questions about these Terms of Service, please contact us at:</p>
+                <p><span class="highlight">Email:</span> legal@cmdr.com</p>
+                <p><span class="highlight">Address:</span> Cmdr Legal Department</p>
+            </div>
+        </div>
+    </section>
+    
+    <footer>
+        <div class="footer-content">
+            <p>&copy; 2026 Cmdr. All rights reserved.</p>
+            <div class="footer-links">
+                <a href="terms-of-service.html">Terms of Service</a>
+                <a href="#">Privacy Policy</a>
+            </div>
+        </div>
+    </footer>
 </body>
 </html>
